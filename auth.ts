@@ -17,11 +17,6 @@ declare module "next-auth" {
     google?: GoogleExtras;
   }
 }
-declare module "next-auth/jwt" {
-  interface JWT {
-    google?: GoogleExtras;
-  }
-}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   // Reads AUTH_GOOGLE_ID and AUTH_GOOGLE_SECRET automatically.
@@ -46,7 +41,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token;
     },
     session({ session, token }) {
-      session.google = token.google;
+      session.google = token.google as GoogleExtras | undefined;
       return session;
     },
   },
